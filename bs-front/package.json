@@ -1,5 +1,5 @@
 {
-  "name": "betstat",
+  "name": "bs-front",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -16,8 +16,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "engines": { "node": "12.18.2" },
-  "proxy": "http://localhost:3080",
   "eslintConfig": {
     "extends": "react-app"
   },
