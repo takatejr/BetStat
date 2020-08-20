@@ -12,3 +12,8 @@ export async function createUser(data) {
       })
     return await response.json();
 }
+
+export async function scrapData() {
+    const res = await fetch('/api/betdata/')
+    return await res.json();
+}

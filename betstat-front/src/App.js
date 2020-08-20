@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { Header } from './components/Header'
 import { Users } from './components/Users'
 import { DisplayBoard } from './components/DisplayBoard'
 import CreateUser from './components/CreateUser'
-import { getAllUsers, createUser } from './services/UserService'
+import { getAllUsers, createUser, scrapData} from './services/UserService'
 
 class App extends Component {
 
@@ -30,6 +29,11 @@ class App extends Component {
         this.setState({users: users, numberOfUsers: users.length})
       });
   }
+
+  scrapData = () => {
+    scrapData().then(x => console.log(x))
+  }
+  
 
   onChangeForm = (e) => {
       let user = this.state.user

@@ -1,4 +1,5 @@
 import React from 'react'
+import { scrapData } from '../services/UserService'
 
 export const DisplayBoard = ({numberOfUsers, getAllUsers}) => {
     
@@ -10,6 +11,7 @@ export const DisplayBoard = ({numberOfUsers, getAllUsers}) => {
             </div>
             <div className="btn">
                 <button type="button" onClick={(e) => getAllUsers()} className="btn btn-warning">Get all Users</button>
+                <button type="button" onClick={(e) => scrapData()}>SCRAPDATA</button>
             </div>
         </div>
     )

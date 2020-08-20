@@ -16,7 +16,7 @@ function waitForResponse() {
 //     })
 // }
 
-async function scrapeProduct(url) {
+export async function scrapeProduct(url) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 

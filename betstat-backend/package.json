@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "http-proxy-middleware": "^1.0.4"
+    "http-proxy-middleware": "^1.0.4",
+    "puppeteer": "^5.2.1"
   },
   "devDependencies": {
     "del": "^5.1.0",

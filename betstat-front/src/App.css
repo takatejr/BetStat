@@ -36,14 +36,18 @@
     transform: rotate(360deg);
   }
 } */
-
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 
 .header {
   width: 100%;
   padding: 2%;
-  background-color: burlywood;
-  color: white;
+  background-color: grey;
+  color: orange;
   text-align: center;
 }
 
