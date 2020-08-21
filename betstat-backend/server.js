@@ -16,10 +16,8 @@ async function scrapeProduct(url) {
   const src = await el.getProperty('title');
   const srctext = await src.jsonValue();
 
-  console.log({srctext})
+  return srctext
 }
-
-const scraper = scrapeProduct('https://www.flashscore.co.uk');
 
 // place holder for the data
 const bettdata = [];
@@ -36,24 +34,17 @@ app.get("/api/users", (req, res) => {
 app.post("/api/user", (req, res) => {
   const user = req.body.user;
   console.log("Adding user::::::::", user);
-  bettdata.push(scraper.then((resolve) => {
-    console.log('hehehe');
-    console.log(resolve)
-    return resolve
-  }))
   users.push(user);
   res.json("user addedd");
 });
 
 
-
-// app.post("/api/betdata", (req, res) => {
-//   const betdata = scraper;
-//   console.log(req)
-//   console.log(betdata);
-//   betdatas.push(betdata)
-//   res.json('pobrałem dane ziomek')
-// })
+app.get("/api/betdata", (req, res) => {
+  const scraper = scrapeProduct('https://www.flashscore.co.uk');
+  bettdata.push(scraper)
+  console.log(scraper);
+  res.json(bettdata)
+})
 
 // app.get("/api/betdatas", (req, res) => {
 //   console.log("api/betdatas called!!!!");

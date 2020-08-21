@@ -14,6 +14,11 @@ export async function createUser(data) {
 }
 
 export async function scrapData() {
-    const res = await fetch('/api/betdata/')
-    return await res.json();
+    const res = await fetch(`/api/betdata`, {
+        headers : { 'Content-Type': 'application/json'}
+        });
+  
+      
+    // const res = await fetch('/').then(res => res.json()).then(data => console.log(data));
+    return res.json();
 }
