@@ -4,7 +4,7 @@ import { Header } from "./components/Header";
 import { Users } from "./components/Users";
 import { DisplayBoard } from "./components/DisplayBoard";
 import CreateUser from "./components/CreateUser";
-import { getAllUsers, createUser, scrapData } from "./services/UserService";
+import { getAllUsers, createUser, scrapData, betdatas } from "./services/UserService";
 import { Matches } from "./components/Matches";
 
 class App extends Component {
@@ -33,9 +33,16 @@ class App extends Component {
   scrapData = () => {
     scrapData().then((matches) => {
       console.log(matches);
-      this.setState({ matches: matches });
+      this.setState({matches: matches});
     });
   };
+
+  betdatas = () => {
+    betdatas().then((matches) => {
+      console.log(matches);
+      this.state({matches: matches});
+    }).then(console.log())
+  }
 
   onChangeForm = (e) => {
     let user = this.state.user;

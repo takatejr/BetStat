@@ -52,26 +52,9 @@ app.get("/api/betdatas", (req, res) => {
   res.json(matches);
 });
 
-// app.get("/api/betdatas", (req, res) => {
-//   console.log("api/betdatas called!!!!");
-//   res.json(betdatas);
-// });
-
-
-
-
-
-
-
-
-
 app.get("/", (req, res) => {
   res.send("App Works !!!!");
 });
-
-
-
-
 
 app.listen(port, () => {
   console.log(`Server listening on the port::${port}`);

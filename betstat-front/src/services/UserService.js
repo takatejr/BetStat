@@ -20,7 +20,7 @@ export async function scrapData() {
     return res.json();
 }
 
-export async function betdatase() {
+export async function betdatas() {
 
     const response = await fetch('/api/betdatas');
     return await response.json();
