@@ -20,14 +20,14 @@ async function scrapeProduct(url) {
 }
 
 // place holder for the data
-const bettdata = [];
+const matches = [];
 const users = [];
 
 app.use(bodyParser.json());
 
 app.get("/api/users", (req, res) => {
-  console.log("api/users called!!!!");
-  console.log(bettdata)
+  console.log("GetALLUSERS");
+  console.log(matches)
   res.json(users);
 });
 
@@ -41,10 +41,16 @@ app.post("/api/user", (req, res) => {
 
 app.get("/api/betdata", (req, res) => {
   const scraper = scrapeProduct('https://www.flashscore.co.uk');
-  bettdata.push(scraper)
+  matches.push(scraper)
   console.log(scraper);
-  res.json(bettdata)
-})
+  res.json('scraped')
+});
+
+app.get("/api/betdatas", (req, res) => {
+  console.log("GetBETDATAS");
+  console.log(matches)
+  res.json(matches);
+});
 
 // app.get("/api/betdatas", (req, res) => {
 //   console.log("api/betdatas called!!!!");

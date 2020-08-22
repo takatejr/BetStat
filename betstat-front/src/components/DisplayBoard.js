@@ -1,7 +1,7 @@
 import React from 'react'
-import { scrapData } from '../services/UserService'
+import { scrapData, betdatase } from '../services/UserService'
 
-export const DisplayBoard = ({numberOfUsers, getAllUsers}) => {
+export const DisplayBoard = ({numberOfUsers, getAllUsers, scrapData}) => {
     
     return(
         <div className="display-board">
@@ -12,6 +12,7 @@ export const DisplayBoard = ({numberOfUsers, getAllUsers}) => {
             <div className="btn">
                 <button type="button" onClick={(e) => getAllUsers()} className="btn btn-warning">Get all Users</button>
                 <button type="button" onClick={(e) => scrapData()}>SCRAPDATA</button>
+                <button type="button" onClick={(e) => betdatase()}>DO TABELI</button>
             </div>
         </div>
     )

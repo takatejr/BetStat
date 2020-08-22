@@ -17,8 +17,11 @@ export async function scrapData() {
     const res = await fetch(`/api/betdata`, {
         headers : { 'Content-Type': 'application/json'}
         });
-  
-      
-    // const res = await fetch('/').then(res => res.json()).then(data => console.log(data));
     return res.json();
+}
+
+export async function betdatase() {
+
+    const response = await fetch('/api/betdatas');
+    return await response.json();
 }

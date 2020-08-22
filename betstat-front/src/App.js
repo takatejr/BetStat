@@ -5,12 +5,14 @@ import { Users } from "./components/Users";
 import { DisplayBoard } from "./components/DisplayBoard";
 import CreateUser from "./components/CreateUser";
 import { getAllUsers, createUser, scrapData } from "./services/UserService";
+import { Matches } from "./components/Matches";
 
 class App extends Component {
   state = {
     user: {},
     users: [],
     numberOfUsers: 0,
+    matches: [],
   };
 
   createUser = (e) => {
@@ -24,14 +26,14 @@ class App extends Component {
     getAllUsers().then((users) => {
       console.log(users);
       this.setState({ users: users, numberOfUsers: users.length });
+      console.log(this.state)
     });
   };
 
   scrapData = () => {
-    scrapData()
-    .then((res) => {
-      console.log(res);
-      this.setState({users: res})
+    scrapData().then((matches) => {
+      console.log(matches);
+      this.setState({ matches: matches });
     });
   };
 
@@ -71,6 +73,7 @@ class App extends Component {
         </div>
         <div className="row mrgnbtm">
           <Users users={this.state.users}></Users>
+          <Matches matches={this.state.matches}></Matches>
         </div>
       </div>
     );
