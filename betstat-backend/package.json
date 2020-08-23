@@ -4,6 +4,7 @@
   "description": "example project react with nodejs",
   "main": "server.js",
   "private": true,
+  "type": "CommonJS",
   "scripts": {
     "start": "node server.bundle.js",
     "build": "webpack",

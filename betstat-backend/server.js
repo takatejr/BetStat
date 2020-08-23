@@ -1,9 +1,10 @@
+
+
 const express = require("express");
 const puppeteer = require("puppeteer");
 const app = express(),
   bodyParser = require("body-parser");
 port = 3080;
-
 
 
 async function scrapeProduct(url) {
@@ -40,8 +41,7 @@ app.post("/api/user", (req, res) => {
 
 
 app.get("/api/betdata", (req, res) => {
-  const scraper = scrapeProduct('https://www.flashscore.co.uk');
-  matches.push(scraper)
+  const scraper = scrapeProduct('https://www.flashscore.co.uk').then((res_) => matches.push({home: res_}));
   console.log(scraper);
   res.json('scraped')
 });

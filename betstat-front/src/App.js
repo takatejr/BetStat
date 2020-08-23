@@ -40,9 +40,9 @@ class App extends Component {
   betdatas = () => {
     betdatas().then((matches) => {
       console.log(matches);
-      this.state({matches: matches});
-    }).then(console.log())
-  }
+      this.setState({matches: matches})
+      console.log(this.state)
+    })}
 
   onChangeForm = (e) => {
     let user = this.state.user;
@@ -73,7 +73,7 @@ class App extends Component {
               <DisplayBoard
                 numberOfUsers={this.state.numberOfUsers}
                 getAllUsers={this.getAllUsers}
-                scrapData={this.scrapData}
+                betdatas={this.betdatas}
               ></DisplayBoard>
             </div>
           </div>

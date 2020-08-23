@@ -1,7 +1,7 @@
 import React from 'react'
-import { scrapData, betdatas } from '../services/UserService'
+import { scrapData} from '../services/UserService'
 
-export const DisplayBoard = ({numberOfUsers, getAllUsers}) => {
+export const DisplayBoard = ({numberOfUsers, getAllUsers, betdatas}) => {
     
     return(
         <div className="display-board">

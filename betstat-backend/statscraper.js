@@ -1,5 +1,4 @@
 const puppeteer = require('puppeteer');
-const { match } = require('assert');
 
 const sleep = howManyTime => new Promise(resolve => setTimeout(resolve, howManyTime));
 
