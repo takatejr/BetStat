@@ -1,5 +1,3 @@
-
-
 const express = require("express");
 const puppeteer = require("puppeteer");
 const app = express(),
@@ -17,6 +15,7 @@ async function scrapeProduct(url) {
   const src = await el.getProperty('title');
   const srctext = await src.jsonValue();
 
+  
   return srctext
 }
 
@@ -41,7 +40,7 @@ app.post("/api/user", (req, res) => {
 
 
 app.get("/api/betdata", (req, res) => {
-  const scraper = scrapeProduct('https://www.flashscore.co.uk').then((res_) => matches.push({home: res_}));
+  const scraper = scrapeProduct('https://www.flashscore.co.uk').then((res_) => matches.push({league: res_}));
   console.log(scraper);
   res.json('scraped')
 });

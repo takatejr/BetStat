@@ -60,7 +60,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header></Header>
-        <div className="container mrgnbtm">
+        <div className="">
           <div className="row">
             <div className="col-md-8">
               <CreateUser

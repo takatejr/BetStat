@@ -7,36 +7,38 @@ export const Matches = ({matches}) => {
         return(
               <tr key = {index} className={index%2 === 0?'odd':'even'}>
                   <td>{index + 1}</td>
+                  <td>{match.league}</td>
                   <td>{match.home}</td>
                   <td>{match.away}</td>
                   <td>{match.referee}</td>
-
-                  {/* <td>{index + 1}</td>
-                  <td>{user.firstName}</td>
-                  <td>{user.lastName}</td>
-                  <td>{user.email}</td> */}
               </tr>
           )
     }
 
     const matchTable = matches.map((match,index) => MatchRow(match,index))
+    const row = document.querySelectorAll('div.container');
 
     return(
         <div className="container">
-            <h2>Matches</h2>
-            <table className="table table-bordered">
+            <h1>Matches</h1>
+            <table className="table ">
                 <thead>
                 <tr>
                     <th>Id</th>
+                    <th>League</th>
                     <th>Home</th>
                     <th>Away</th>
                     <th>Referee</th>    
                 </tr>
+
                 </thead>
                 <tbody>
                     {matchTable}
                 </tbody>
             </table>
+            <div>
+                <div className="container">hehe</div>
+            </div>
         </div>
     )
 }
