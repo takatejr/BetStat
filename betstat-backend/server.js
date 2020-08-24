@@ -15,19 +15,15 @@ async function scrapeProduct(url) {
   const [el] = await page.$x('//*[@id="live-table"]/div[2]/div/div/div[1]/div[2]');
   const src = await el.getProperty('title');
   const srctext = await src.jsonValue();
-  
-  const aaa = await page.$x(console.log())
 
-  const leagues = await page.$$eval('.event__title--name', (res) => res.map(el => el.getAttribute('title')));
+  const leagues = await page.$$eval('div.event__match.event__match--oneLine', (res) => res.map(el => el.getAttribute('title')));
   // const leagues = await page.$$eval('div.sportName.soccer > *', (res) => res.map(el => el.getAttribute('title')));
   const ids = await page.$$eval('div.sportName.soccer > div.event__match', (res) => res.map(el => el.getAttribute('id')))
 
   arr = [];
 
-  for(let league of leagues) {
-    // if(null != league) {
-      arr.push(league);
-    // }
+  for(let i = 0; i < leagues.length; i++) {
+      arr.push({nr: i, title: leagues[i]});
   }
 
   arrids = [];
