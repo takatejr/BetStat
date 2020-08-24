@@ -5,6 +5,7 @@ const app = express(),
 port = 3080;
 
 
+
 async function scrapeProduct(url) {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
@@ -14,10 +15,38 @@ async function scrapeProduct(url) {
   const [el] = await page.$x('//*[@id="live-table"]/div[2]/div/div/div[1]/div[2]');
   const src = await el.getProperty('title');
   const srctext = await src.jsonValue();
-
   
+  const aaa = await page.$x(console.log())
+
+  const leagues = await page.$$eval('.event__title--name', (res) => res.map(el => el.getAttribute('title')));
+  // const leagues = await page.$$eval('div.sportName.soccer > *', (res) => res.map(el => el.getAttribute('title')));
+  const ids = await page.$$eval('div.sportName.soccer > div.event__match', (res) => res.map(el => el.getAttribute('id')))
+
+  arr = [];
+
+  for(let league of leagues) {
+    // if(null != league) {
+      arr.push(league);
+    // }
+  }
+
+  arrids = [];
+
+  for(let i = 0; i < ids.length; i++){
+    arrids.push({nr: i, id: ids[i]})
+  }
+
+  console.log(arr)
+  console.log(arrids)
+
   return srctext
 }
+
+
+
+
+
+
 
 // place holder for the data
 const matches = [];

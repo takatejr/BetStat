@@ -16,7 +16,10 @@ export const Matches = ({matches}) => {
     }
 
     const matchTable = matches.map((match,index) => MatchRow(match,index))
-    const row = document.querySelectorAll('div.container');
+    // const row = document.querySelectorAll('div.container');
+    // row.forEach(item => {
+    //     item.addEventListener('mouseover', event.target)
+    // })
 
     return(
         <div className="container">
