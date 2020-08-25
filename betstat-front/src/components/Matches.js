@@ -8,6 +8,7 @@ export const Matches = ({matches}) => {
               <tr key = {index} className={index%2 === 0?'odd':'even'}>
                   <td>{index + 1}</td>
                   <td>{match.league}</td>
+                  <td>{match.start}</td>
                   <td>{match.home}</td>
                   <td>{match.away}</td>
                   <td>{match.referee}</td>
@@ -29,9 +30,10 @@ export const Matches = ({matches}) => {
                 <tr>
                     <th>Id</th>
                     <th>League</th>
+                    <th>Start</th>
                     <th>Home</th>
                     <th>Away</th>
-                    <th>Referee</th>    
+                    <th>Referee</th>
                 </tr>
 
                 </thead>

@@ -12,36 +12,63 @@ async function scrapeProduct(url) {
 
   await page.goto(url);
 
-  const [el] = await page.$x('//*[@id="live-table"]/div[2]/div/div/div[1]/div[2]');
-  const src = await el.getProperty('title');
-  const srctext = await src.jsonValue();
 
-  const leagues = await page.$$eval('div.event__match.event__match--oneLine', (res) => res.map(el => el.getAttribute('title')));
+  // Leagues TODO
+  const leagues = await page.$$eval('span.event__title--name', (res) => res.map(el => el.getAttribute('title')));
   // const leagues = await page.$$eval('div.sportName.soccer > *', (res) => res.map(el => el.getAttribute('title')));
-  const ids = await page.$$eval('div.sportName.soccer > div.event__match', (res) => res.map(el => el.getAttribute('id')))
+
+
+  // Basic data
+  const home = await page.$$eval('.event__participant--home', (res) => res.map(el => el.textContent));
+  const away = await page.$$eval('.event__participant--away', (res) => res.map(el => el.textContent));
+  const notSplittedIds = await page.$$eval('div.sportName.soccer > div.event__match', (res) => res.map(el => el.getAttribute('id')))
+  ids = [];
+
+  for (let i = 0; i < notSplittedIds.length; i++){
+    ids.push(notSplittedIds[i].toString().split('_')[2])
+  }
+
+  // Advanced data flashscore
+
+  await page.goto(url + '/match/' + ids[1] + '/#h2h;overall')
+
+  const [winDrawLose] = await page.$x('//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[1]/td[6]/a');
+  const getMe = await winDrawLose.getProperty('title');
+  const getMeWynik = await getMe.jsonValue();
+
+  console.log({getMeWynik})
+
+  page.goBack();
+  
+  for(let i = 0; i < ids.length; i++){
+    await page.goto(url + '/match/' + ids[i] + '/#h2h;overall')
+
+    const [winDrawLose] = await page.$x('//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[1]/td[6]/a');
+    const getMe = await winDrawLose.getProperty('title');
+    const getMeWynik = await getMe.jsonValue();
+  
+    console.log({getMeWynik})
+  
+    page.goBack();
+  }
+
+  // Status or time 
+  // const start = await page.$$eval('div.event__check + div', (res) => res.map(el => el.textContent)); to variable datas
+
+
+  //
+
+  // await page.goto(url + '/match/' + idForOpenWindow + '/#h2h;overall') 
+
 
   arr = [];
 
-  for(let i = 0; i < leagues.length; i++) {
-      arr.push({nr: i, title: leagues[i]});
+  for(let i = 0; i < home.length; i++){
+    arr.push({home: home[i], away: away[i], matchID: ids[i]})
   }
 
-  arrids = [];
-
-  for(let i = 0; i < ids.length; i++){
-    arrids.push({nr: i, id: ids[i]})
-  }
-
-  console.log(arr)
-  console.log(arrids)
-
-  return srctext
+  return arr
 }
-
-
-
-
-
 
 
 // place holder for the data
@@ -65,14 +92,13 @@ app.post("/api/user", (req, res) => {
 
 
 app.get("/api/betdata", (req, res) => {
-  const scraper = scrapeProduct('https://www.flashscore.co.uk').then((res_) => matches.push({league: res_}));
-  console.log(scraper);
+  const scraper = scrapeProduct('https://www.flashscore.co.uk').then((res_) => matches.push(res_));
   res.json('scraped')
 });
 
 app.get("/api/betdatas", (req, res) => {
   console.log("GetBETDATAS");
-  console.log(matches)
+  // console.log(matches)
   res.json(matches);
 });
 

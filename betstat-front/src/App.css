@@ -36,7 +36,7 @@ Matches {
   width: 100%;
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-template-rows: 10% 90%;
+  grid-template-rows: 5vh 85vh;
   grid-template-areas:
   "name name"
   "1st 2nd" ;
