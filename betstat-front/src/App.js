@@ -40,7 +40,7 @@ class App extends Component {
   betdatas = () => {
     betdatas().then((matches) => {
       console.log(matches);
-      this.setState({matches: matches[0]})
+      this.setState({matches: matches})
       console.log(this.state)
     })}
 
