@@ -84,19 +84,28 @@ app.listen(port, () => {
 async function moreDetailedMatch() {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
+  const undefineds = [];
 
     // Advanced data flashscore
-queueMicrotask
     for(let {matchID: ID} of matches) {
-
     await page.goto(URL_FS + '/match/' + ID + '/#h2h;overall');
+    const [home1of5LastGames] = await page.$x('//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[1]/td[6]/a');
+    const [home2of5LastGames] = await page.$x('//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[2]/td[6]/a');
+    const [home3of5LastGames] = await page.$x('//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[3]/td[6]/a');
+    const [home4of5LastGames] = await page.$x('//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[4]/td[6]/a');
+    const [home5of5LastGames] = await page.$x(`//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[5]/td[6]/a`);
 
-    const [winDrawLose] = await page.$x('//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[1]/td[6]/a');
-    const getMe = await winDrawLose.getProperty('title');
-    const getMeWynik = await getMe.jsonValue();
 
-    console.log({getMeWynik, ID})
+    if(winDrawLose == undefined){
+      undefineds.push(ID)
+    } else {
+      const getMe = await winDrawLose.getProperty('title');
+      const getMeWynik = await getMe.jsonValue();
+
+      console.log({getMeWynik, ID})
     }
 
-
+    }
+console.log(undefineds)
+    browser.close();
 }
