@@ -13,31 +13,47 @@ async function scrapeProduct() {
   await page.goto(URL_FS);
 
   // Leagues TODO
-  const leagues = await page.$$eval('span.event__title--name', (res) => res.map(el => el.getAttribute('title')));
+  const leagues = await page.$$eval("span.event__title--name", (res) =>
+    res.map((el) => el.getAttribute("title")),
+  );
   // const leagues = await page.$$eval('div.sportName.soccer > *', (res) => res.map(el => el.getAttribute('title')));
 
+
+
   // Basic data
-  const home = await page.$$eval('.event__participant--home', (res) => res.map(el => el.textContent));
-  const away = await page.$$eval('.event__participant--away', (res) => res.map(el => el.textContent));
-  const notSplittedIds = await page.$$eval('div.sportName.soccer > div.event__match', (res) => res.map(el => el.getAttribute('id')))
+  const home = await page.$$eval(".event__participant--home", (res) =>
+    res.map((el) => el.textContent),
+  );
+  const away = await page.$$eval(".event__participant--away", (res) =>
+    res.map((el) => el.textContent),
+  );
+  const notSplittedIds = await page.$$eval(
+    "div.sportName.soccer > div.event__match",
+    (res) => res.map((el) => el.getAttribute("id")),
+  );
+
+
+  
   ids = [];
 
-  for (let i = 0; i < notSplittedIds.length; i++){
-    ids.push(notSplittedIds[i]
-      .toString()
-      .split('_')[2])
+  for (let i = 0; i < notSplittedIds.length; i++) {
+    ids.push(notSplittedIds[i].toString().split("_")[2]);
   }
 
-  // Status or time 
+  // Status or time
   // const start = await page.$$eval('div.event__check + div', (res) => res.map(el => el.textContent)); to variable datas
 
   arr = [];
 
-  for(let i = 0; i < home.length; i++){
-    arr.push({home: home[i], away: away[i], matchID: ids[i]})
+  for (let i = 0; i < home.length; i++) {
+    arr.push({
+      home: home[i],
+      away: away[i],
+      matchID: ids[i],
+    });
   }
 
-  return arr
+  return arr;
 }
 
 // place holder for the data
@@ -48,7 +64,7 @@ app.use(bodyParser.json());
 
 app.get("/api/users", (req, res) => {
   console.log("GetALLUSERS");
-  console.log(matches)
+  console.log(matches);
   res.json(users);
 });
 
@@ -60,14 +76,14 @@ app.post("/api/user", (req, res) => {
 });
 
 app.get("/api/betdata", (req, res) => {
-  const scraper = scrapeProduct().then((arr) => matches = arr);
-  res.json('scraped')
-  console.log('POBRANO')
+  const scraper = scrapeProduct().then((arr) => (matches = arr));
+  res.json("scraped");
+  console.log("POBRANO");
 });
 
 app.get("/api/betdatas", (req, res) => {
   console.log("GetBETDATAS");
-  console.log(matches)
+  console.log(matches);
   moreDetailedMatch();
   res.json(matches);
 });
@@ -80,32 +96,32 @@ app.listen(port, () => {
   console.log(`Server listening on the port::${port}`);
 });
 
-
 async function moreDetailedMatch() {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   const undefineds = [];
 
-    // Advanced data flashscore
-    for(let {matchID: ID} of matches) {
-    await page.goto(URL_FS + '/match/' + ID + '/#h2h;overall');
-    const [home1of5LastGames] = await page.$x('//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[1]/td[6]/a');
-    const [home2of5LastGames] = await page.$x('//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[2]/td[6]/a');
-    const [home3of5LastGames] = await page.$x('//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[3]/td[6]/a');
-    const [home4of5LastGames] = await page.$x('//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[4]/td[6]/a');
-    const [home5of5LastGames] = await page.$x(`//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[5]/td[6]/a`);
 
+  // Advanced data flashscore
+  for (let { matchID: ID } of matches) {
+    arrx = [];
 
-    if(winDrawLose == undefined){
-      undefineds.push(ID)
-    } else {
-      const getMe = await winDrawLose.getProperty('title');
-      const getMeWynik = await getMe.jsonValue();
+    await page.goto(URL_FS + "/match/" + ID + "/#h2h;overall");
 
-      console.log({getMeWynik, ID})
+    for (let i = 0; i < 10; i++) {
+      const [ee] = await page.$x(`//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[${i}]/td[6]/a`);
+
+      if (ee == undefined) {
+        undefineds.push(ID);
+      } else {
+        const getMe = await ee.getProperty("title");
+        const getMeResult = await getMe.jsonValue();
+        console.log({ getMeResult, ID });
+        arrx.push(ee);
+      }
     }
 
-    }
-console.log(undefineds)
-    browser.close();
+  }
+  // console.log(undefineds)
+  browser.close();
 }
