@@ -122,6 +122,6 @@ async function moreDetailedMatch() {
     }
 
   }
-  // console.log(undefineds)
+  console.log(undefineds)
   browser.close();
 }
