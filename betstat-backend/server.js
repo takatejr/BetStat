@@ -109,15 +109,22 @@ async function moreDetailedMatch() {
     await page.goto(URL_FS + "/match/" + ID + "/#h2h;overall");
 
     for (let i = 0; i < 10; i++) {
-      const [ee] = await page.$x(`//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[${i}]/td[6]/a`);
+      const [home] = await page.$x(`//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[${i}]/td[6]/a`);
+      const [away] = await page.$x(`//*[@id="tab-h2h-overall"]/div[2]/table/tbody/tr[${i}]/td[6]/a`);
 
-      if (ee == undefined) {
+      if (home == undefined || away == undefined) {
         undefineds.push(ID);
       } else {
-        const getMe = await ee.getProperty("title");
-        const getMeResult = await getMe.jsonValue();
-        console.log({ getMeResult, ID });
-        arrx.push(ee);
+        const homeTitles = await home.getProperty("title");
+        const awayTitles = await away.getProperty("title");
+        
+        const homeLastMatches = await homeTitles.jsonValue();
+        const awayLastMatches = await awayTitles.jsonValue();
+
+        console.log({ homeLastMatches, ID });
+        console.log({ awayLastMatches, ID });
+        
+        arrx.push(homeLastMatches);
       }
     }
 
