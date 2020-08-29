@@ -1,49 +1,38 @@
 import React from 'react'
+import { overall } from '../services/UserService'
 
-export const MoreDetails = ({details}) => {
+export const MoreDetails = (details) => {
 
-    const MatchRow = (match,index) => {
+    const MatchRow = (details) => {
 
         return(
-              <tr key = {index} className={index%2 === 0?'odd':'even'}>
-                  <td>{index + 1}</td>
-                  <td>{match.league}</td>
-                  <td>{match.start}</td>
-                  <td>{match.home}</td>
-                  <td>{match.away}</td>
-                  <td>{match.referee}</td>
-              </tr>
+            <div>
+                <div className="home">
+                    <div className="last__matches">
+                        <div className="{details.homeLastMatches}">{details.homeLastMatches}</div>
+                    </div>
+                </div>
+                <div className="away">
+                    <div className="last__matches">
+                        <div className="{details.homeLastMatches}">{details.homeLastMatches}</div>
+                    </div>
+                </div>
+            </div>
           )
     } 
 
-    const matchTable = matches.map((match,index) => MatchRow(match,index))
-    // const row = document.querySelectorAll('div.container');
-    // row.forEach(item => {
-    //     item.addEventListener('mouseover', event.target)
-    // })
+    const lastMatches = details.map((match) => MatchRow(match))
+    const row = document.querySelectorAll('div.container');
+    row.forEach(item => {
+        item.addEventListener('mouseover', overall())
+    })
 
     return(
         <div className="container">
-            <h1>Matches</h1>
-            <table className="table ">
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>League</th>
-                    <th>Start</th>
-                    <th>Home</th>
-                    <th>Away</th>
-                    <th>Referee</th>
-                </tr>
-
-                </thead>
-                <tbody>
-                    {matchTable}
-                </tbody>
-            </table>
-            <div>
-                <div className="container">hehe</div>
+            <div className="currentForm">
+                {lastMatches}
             </div>
+
         </div>
     )
 }

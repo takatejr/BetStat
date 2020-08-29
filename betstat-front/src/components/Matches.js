@@ -5,7 +5,8 @@ export const Matches = ({matches}) => {
     const MatchRow = (match,index) => {
 
         return(
-              <tr key = {index} className={index%2 === 0?'odd':'even'}>
+              <tr key = {index} className={match.matchID}>
+            {/* <tr key = {index} className={index%2 === 0?'odd':'even'}> */}
                   <td>{index + 1}</td>
                   <td>{match.league}</td>
                   <td>{match.start}</td>

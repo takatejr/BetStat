@@ -34,6 +34,7 @@ Matches {
 
 .container {
   width: 100%;
+  height: 600vh;
   display: grid;
   grid-template-columns: 50% 50%;
   grid-template-rows: 5vh 85vh;
@@ -41,7 +42,7 @@ Matches {
   "name name"
   "1st 2nd" ;
   padding: 0px 2px 80px 2px;
-
+  background-color: #36be7a;
 } 
 
 h1 {
@@ -57,12 +58,4 @@ h1 {
 
 td {
   border: 1px solid #e9e9db;
-}
-
-.even {
-  background-color: blanchedalmond;
-}
-
-.odd {
-  background-color: rgba(87, 240, 232, 0.1) ;
 }

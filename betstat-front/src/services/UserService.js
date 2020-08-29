@@ -25,3 +25,9 @@ export async function betdatas() {
     const response = await fetch('/api/betdatas');
     return await response.json();
 }
+
+export async function overall() {
+
+    const response = await fetch('/api/matchID');
+    return await response.json();
+}
