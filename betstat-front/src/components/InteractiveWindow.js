@@ -1,34 +1,37 @@
 import React from 'react'
 
-export const MoreDetails = ({details}) => {
+export const MoreDetails = ({details, idd}) => {
+    
+    const { homeLastMatches: homeLastMatches, awayLastMatches: awayLastMatches} = details;
+    MoreDetaileeeed(homeLastMatches, awayLastMatches, idd)
 
-    const hehe = (detail) => {
-
+    const MoreDetaileeeed = (home, away, idd) => {
+        console.log(home)
         return(
             <div>
-                <div className="home">HOME ---
+                <div className="home">
                     <div className="last__matches">
-                        <div>{detail.homeLastMatches}</div>
+                        <div>{home}{idd}</div>
                     </div>
                 </div>
-                <div className="away">AWAY ---
+                <div className="away">
                     <div className="last__matches">
-                        <div>{detail.awayLastMatches}</div>
+                        <div>{away}</div>
                     </div>
                 </div>
             </div>
           )
     } 
-   
-    let hehex = details.map(el => hehe(el));
 
 
     return(
         <div className="container">
             <div className="currentForm">
-                {hehex}
+                {}
+                {idd}
             </div>
-
+            <div>
+            </div>
         </div>
     )
 }

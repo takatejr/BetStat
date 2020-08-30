@@ -10,7 +10,9 @@ class App extends Component {
 
   state = {
     currentID: '',
+    currentIndex: '1',
     matches: [],
+
   };
 
   betdatas = () => {
@@ -31,6 +33,11 @@ class App extends Component {
       console.log(this.state.matches)
     }
 
+    getAndSendObject = (e, index) => {
+      console.log(e.target, index)
+      this.setState({currentIndex: index})
+    }
+
   render() {
     return (
       <div className="App">
@@ -42,8 +49,8 @@ class App extends Component {
                 sortujto={this.sortujto}
               ></DisplayBoard>
         <div className="row">
-          <Matches matches={this.state.matches} getAndSendID={this.getAndSendID}></Matches>
-          {/* <MoreDetails details={this.state.matches}></MoreDetails> */}
+          <Matches matches={this.state.matches} getAndSendID={this.getAndSendID} getAndSendObject={this.getAndSendObject}></Matches>
+          <MoreDetails details={this.state.matches[this.state.currentIndex]} idd={this.state.currentIndex}></MoreDetails>
         </div>
       </div>
     );

@@ -1,19 +1,19 @@
 import React from 'react'
 
-export const Matches = ({matches, getAndSendID}) => {
+export const Matches = ({matches, getAndSendID, getAndSendObject}) => {
 
     const MatchRow = (match,index) => {
-
+        // console.log(match)
         return(
-              <tr key = {index}>
+              <tr key = {index} onClick={(e) => getAndSendObject(e, index)}>
                   <td>{index + 1}</td>
-                  <td>{match.league}</td>
+                  <td >{match.league}</td>
                   <td>{match.start}</td>
                   <td>{match.home}</td>
                   <td>{match.away}</td>
-                  <td>{match.homeLastMatches}</td>
-                  <td>{match.awayLastMatches}</td>
-                  <td onClick={(e) => getAndSendID(e)} className={match.matchID}>\/</td>
+                  {/* <td>{match.homeLastMatches}</td> */}
+                  {/* <td>{match.awayLastMatches}</td> */}
+                  <td onClick={(e) => getAndSendID(e)} className={match.matchID}>XOXOXO</td>
               </tr>
           )
     }
@@ -30,8 +30,8 @@ export const Matches = ({matches, getAndSendID}) => {
                     <th>Start</th>
                     <th>Home</th>
                     <th>Away</th>
-                    <th>HomeMMM</th>
-                    <th>AwayMMM</th>
+                    {/* <th>HomeMMM</th> */}
+                    {/* <th>AwayMMM</th> */}
                     <th>Advanced</th>
                 </tr>
 

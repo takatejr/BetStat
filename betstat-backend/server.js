@@ -92,11 +92,13 @@ app.get("/api/betdatas", (req, res) => {
 app.post("/api/matchID", (req, res) => {
   const lastMatchID = req.body.currentID;
   console.log(`POBRANO MECZ O ID = ${lastMatchID}, ZACZYNAM WYKONYWAC DALSZE POBIERANIE`);
-  
   if(!scrapedMoreDetailed.includes(lastMatchID)){
     console.log('działa ten if')
   moreDetailedMatch(lastMatchID);
   scrapedMoreDetailed.push(lastMatchID);
+  } else {
+    console.clear();
+    console.log("juz jest to ID")
   }
   res.json(matches)
 });
@@ -128,7 +130,7 @@ async function moreDetailedMatch(ID) {
 
       const homeLastMatches = await homeTitles.jsonValue();
       const awayLastMatches = await awayTitles.jsonValue();
-
+      
       for (const match of matches) {
         if (match.matchID == ID) {
           match.awayLastMatches.push(awayLastMatches);
@@ -137,7 +139,7 @@ async function moreDetailedMatch(ID) {
       }
     }
   }
-  
+  console.log("dobra zrobione")
     browser.close();
   }
 
