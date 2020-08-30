@@ -1,5 +1,4 @@
 export async function getAllUsers() {
-
     const response = await fetch('/api/users');
     return await response.json();
 }
@@ -21,13 +20,16 @@ export async function scrapData() {
 }
 
 export async function betdatas() {
-
     const response = await fetch('/api/betdatas');
     return await response.json();
 }
 
-export async function overall() {
+export async function overall(currentID) {
 
-    const response = await fetch('/api/matchID');
+    const response = await fetch('/api/matchID', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({currentID: currentID})
+      });
     return await response.json();
 }

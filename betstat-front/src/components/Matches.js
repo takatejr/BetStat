@@ -1,32 +1,28 @@
 import React from 'react'
 
-export const Matches = ({matches}) => {
+export const Matches = ({matches, getAndSendID}) => {
 
     const MatchRow = (match,index) => {
 
         return(
-              <tr key = {index} className={match.matchID}>
-            {/* <tr key = {index} className={index%2 === 0?'odd':'even'}> */}
+              <tr key = {index}>
                   <td>{index + 1}</td>
                   <td>{match.league}</td>
                   <td>{match.start}</td>
                   <td>{match.home}</td>
                   <td>{match.away}</td>
-                  <td>{match.referee}</td>
+                  <td>{match.homeLastMatches}</td>
+                  <td>{match.awayLastMatches}</td>
+                  <td onClick={(e) => getAndSendID(e)} className={match.matchID}>\/</td>
               </tr>
           )
     }
 
     const matchTable = matches.map((match,index) => MatchRow(match,index))
-    // const row = document.querySelectorAll('div.container');
-    // row.forEach(item => {
-    //     item.addEventListener('mouseover', event.target)
-    // })
 
-    return(
+        return(
         <div className="container">
-            <h1>Matches</h1>
-            <table className="table ">
+            <table className="table">
                 <thead>
                 <tr>
                     <th>Id</th>
@@ -34,7 +30,9 @@ export const Matches = ({matches}) => {
                     <th>Start</th>
                     <th>Home</th>
                     <th>Away</th>
-                    <th>Referee</th>
+                    <th>HomeMMM</th>
+                    <th>AwayMMM</th>
+                    <th>Advanced</th>
                 </tr>
 
                 </thead>
@@ -42,9 +40,6 @@ export const Matches = ({matches}) => {
                     {matchTable}
                 </tbody>
             </table>
-            <div>
-                <div className="container">hehe</div>
-            </div>
         </div>
     )
 }

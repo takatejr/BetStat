@@ -44,6 +44,7 @@ async function scrapeProduct() {
 
   for (let i = 0; i < home.length; i++) {
     arr.push({
+      id: i,
       home: home[i],
       away: away[i],
       matchID: ids[i],
@@ -58,6 +59,7 @@ async function scrapeProduct() {
 // place holder for the data
 let matches = [];
 const users = [];
+const scrapedMoreDetailed = [];
 
 app.use(bodyParser.json());
 
@@ -75,22 +77,29 @@ app.post("/api/user", (req, res) => {
 });
 
 app.get("/api/betdata", (req, res) => {
-  const scraper = scrapeProduct().then((arr) => (matches = arr));
+  scrapeProduct().then((arr) => (matches = arr));
+  console.log(`Sprawdzam czy dziś coś grają`);
   res.json("scraped");
 });
 
 app.get("/api/betdatas", (req, res) => {
-  console.log("GetBETDATAS");
-  const aaa = 'CvCmbtwj';
-  moreDetailedMatch(aaa);
+  console.log(
+    `Wyświetlanie wszystkich ${matches.length} rozgrywanych dzisiaj meczy`,
+  );
   res.json(matches);
 });
 
 app.post("/api/matchID", (req, res) => {
-  const lastMatchID = req.body.matchID;
-  console.log(`POBRANO ID MECZOW ${lastMatchID}, ZACZYNAM WYKONYWAC POBIERANIE`);
-  res.json(moreDetailedMatch(lastMatchID))
-})
+  const lastMatchID = req.body.currentID;
+  console.log(`POBRANO MECZ O ID = ${lastMatchID}, ZACZYNAM WYKONYWAC DALSZE POBIERANIE`);
+  
+  if(!scrapedMoreDetailed.includes(lastMatchID)){
+    console.log('działa ten if')
+  moreDetailedMatch(lastMatchID);
+  scrapedMoreDetailed.push(lastMatchID);
+  }
+  res.json(matches)
+});
 
 app.get("/", (req, res) => {
   res.send("App Works !!!!");
@@ -100,37 +109,37 @@ app.listen(port, () => {
   console.log(`Server listening on the port::${port}`);
 });
 
-async function moreDetailedMatch(IDx) {
+async function moreDetailedMatch(ID) {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   const undefineds = [];
-  const theirLastMatches = [];
-    await page.goto(URL_FS + "/match/" + IDx + "/#h2h;overall");
 
-    for (let i = 0; i < 7; i++) {
-      const [home] = await page.$x(`//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[${i}]/td[6]/a`);
-      const [away] = await page.$x(`//*[@id="tab-h2h-overall"]/div[2]/table/tbody/tr[${i}]/td[6]/a`);
+  await page.goto(URL_FS + "/match/" + ID + "/#h2h;overall");
 
-      if (home == undefined || away == undefined) {
-        undefineds.push(IDx);
+  for (let i = 0; i < 7; i++) {
+    const [home] = await page.$x(`//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[${i}]/td[6]/a`);
+    const [away] = await page.$x(`//*[@id="tab-h2h-overall"]/div[2]/table/tbody/tr[${i}]/td[6]/a`);
 
-      } else {
-        const homeTitles = await home.getProperty("title");
-        const awayTitles = await away.getProperty("title");
-        
-        const homeLastMatches = await homeTitles.jsonValue();
-        const awayLastMatches = await awayTitles.jsonValue();
+    if (home == undefined || away == undefined) {
+      undefineds.push(ID);
+    } else {
+      const homeTitles = await home.getProperty("title");
+      const awayTitles = await away.getProperty("title");
 
-        theirLastMatches.push({ homeLastMatches, awayLastMatches});
-        console.log(theirLastMatches)
+      const homeLastMatches = await homeTitles.jsonValue();
+      const awayLastMatches = await awayTitles.jsonValue();
+
+      for (const match of matches) {
+        if (match.matchID == ID) {
+          match.awayLastMatches.push(awayLastMatches);
+          match.homeLastMatches.push(homeLastMatches)
+        }
       }
     }
+  }
   
-  console.log('nie działa jak należy')
-  browser.close();
-
-  return theirLastMatches
-}
+    browser.close();
+  }
 
 
 // async function moreDetailedMatch() {
@@ -145,7 +154,6 @@ async function moreDetailedMatch(IDx) {
 //     await page.goto(URL_FS + "/match/" + ID + "/#h2h;overall");
 //     // console.log(matches)
 
-
 //     for (let i = 0; i < 7; i++) {
 //       const [home] = await page.$x(`//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[${i}]/td[6]/a`);
 //       const [away] = await page.$x(`//*[@id="tab-h2h-overall"]/div[2]/table/tbody/tr[${i}]/td[6]/a`);
@@ -156,7 +164,7 @@ async function moreDetailedMatch(IDx) {
 //       } else {
 //         const homeTitles = await home.getProperty("title");
 //         const awayTitles = await away.getProperty("title");
-        
+
 //         const homeLastMatches = await homeTitles.jsonValue();
 //         const awayLastMatches = await awayTitles.jsonValue();
 

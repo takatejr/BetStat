@@ -1,36 +1,32 @@
 import React from 'react'
-import { overall } from '../services/UserService'
 
-export const MoreDetails = (details) => {
+export const MoreDetails = ({details}) => {
 
-    const MatchRow = (details) => {
+    const hehe = (detail) => {
 
         return(
             <div>
-                <div className="home">
+                <div className="home">HOME ---
                     <div className="last__matches">
-                        <div className="{details.homeLastMatches}">{details.homeLastMatches}</div>
+                        <div>{detail.homeLastMatches}</div>
                     </div>
                 </div>
-                <div className="away">
+                <div className="away">AWAY ---
                     <div className="last__matches">
-                        <div className="{details.homeLastMatches}">{details.homeLastMatches}</div>
+                        <div>{detail.awayLastMatches}</div>
                     </div>
                 </div>
             </div>
           )
     } 
+   
+    let hehex = details.map(el => hehe(el));
 
-    const lastMatches = details.map((match) => MatchRow(match))
-    const row = document.querySelectorAll('div.container');
-    row.forEach(item => {
-        item.addEventListener('mouseover', overall())
-    })
 
     return(
         <div className="container">
             <div className="currentForm">
-                {lastMatches}
+                {hehex}
             </div>
 
         </div>

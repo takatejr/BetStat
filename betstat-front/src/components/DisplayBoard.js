@@ -1,18 +1,18 @@
 import React from 'react'
-import { scrapData} from '../services/UserService'
+import { scrapData } from '../services/UserService'
 
-export const DisplayBoard = ({numberOfUsers, getAllUsers, betdatas}) => {
+export const DisplayBoard = ({numberOfMatches, betdatas, consol, sortujto}) => {
     
     return(
         <div className="display-board">
-            <h4>Users Created</h4>
             <div className="number">
-            {numberOfUsers}
+            {numberOfMatches} matches
             </div>
             <div className="btn">
-                <button type="button" onClick={(e) => getAllUsers()} className="btn btn-warning">Get all Users</button>
                 <button type="button" onClick={(e) => scrapData()}>SCRAPDATA</button>
                 <button type="button" onClick={(e) => betdatas()}>DO TABELI</button>
+                <button type="button" onClick={(e) => consol()}>Check state</button>
+                <button type="button" onClick={(e) => sortujto()}>sortujto</button>
             </div>
         </div>
     )
