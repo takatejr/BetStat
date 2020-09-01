@@ -38,8 +38,8 @@
   background-color: #36be7a;
 } 
 
-h1 {
-  grid-area: name;
+div.container {
+  grid-area: 2nd;
   text-align: center;
 }
 
@@ -65,13 +65,20 @@ td {
   background-color: grey;
 }
 
+.Win {
+  background-color: green;
+}
+
+
+.WinDrawLose {
+  background-color: blue;
+  display: grid;
+}
 .btn {
 margin: 0 40%;
 }
 
-.Win {
-  background-color: green;
-}
+
 
 .currentForm {
   width: 50%;

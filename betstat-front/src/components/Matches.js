@@ -1,9 +1,8 @@
-import React, { createContext } from 'react'
+import React from 'react'
 
 export const Matches = ({matches, getAndSendID, getAndSendObject}) => {
 
     const MatchRow = (match,index) => {
-        // console.log(match)
         return(
               <tr key = {index} onClick={(e) => getAndSendObject(e, index)}>
                   <td>{index + 1}</td>
@@ -11,8 +10,6 @@ export const Matches = ({matches, getAndSendID, getAndSendObject}) => {
                   <td>{match.start}</td>
                   <td>{match.home}</td>
                   <td>{match.away}</td>
-                  {/* <td>{match.homeLastMatches}</td> */}
-                  {/* <td>{match.awayLastMatches}</td> */}
                   <td onClick={(e) => getAndSendID(e)} className={match.matchID}>XOXOXO</td>
               </tr>
           )
@@ -21,7 +18,7 @@ export const Matches = ({matches, getAndSendID, getAndSendObject}) => {
     const matchTable = matches.map((match,index) => MatchRow(match,index))
 
         return(
-        <div className="container">
+        <div className="matchTable">
             <table className="table">
                 <thead>
                 <tr>
@@ -30,8 +27,6 @@ export const Matches = ({matches, getAndSendID, getAndSendObject}) => {
                     <th>Start</th>
                     <th>Home</th>
                     <th>Away</th>
-                    {/* <th>HomeMMM</th> */}
-                    {/* <th>AwayMMM</th> */}
                     <th>Advanced</th>
                 </tr>
 

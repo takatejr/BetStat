@@ -1,48 +1,60 @@
-import React from 'react'
+import React from "react";
 
-export const MoreDetails = ({details, idd}) => {
-    
-
-    const MoreDetaileeeed = (home, away, idd) => {
-        return(
+export const MoreDetails = ({ details, idd }) => {
+  const MoreDetaileeeed = (home, away, idd) => {
+    return (
+      <div className="WinDrawLose">
+        <div className="home">
+          <div className="last__matches">
             <div>
-                <div className="home">
-                    <div className="last__matches">
-                    <div>{home}{idd}</div>
-                    </div>
-                </div>
-                <div className="away">
-                    <div className="last__matches">
-                    <div>{away}</div>
-                </div>
+              {home}
+              {idd}
             </div>
+          </div>
         </div>
-            )
-        }
-    
-    // console.log(details)
+        <div className="away">
+          <div className="last__matches">
+            <div>{away}</div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
-    const destruct = details => {
-    if(details == undefined){
-        return
+  // console.log(details)
+
+  const home = (details) => {
+    if (details === undefined) {
+      return;
     } else {
-    const { homeLastMatches: homeLastMatches, awayLastMatches: awayLastMatches} = details;
-    MoreDetaileeeed(homeLastMatches, awayLastMatches, idd)
-    console.log(homeLastMatches, awayLastMatches)
-    return homeLastMatches, awayLastMatches
+      const { homeLastMatches } = details;
+      return homeLastMatches.toString().split(",").join(" ");
     }
+  };
 
-    // console.log(details.homeLastMatches)
+  const away = (details) => {
+    if (details === undefined) {
+      return;
+    } else {
+      const { awayLastMatches } = details;
+      return awayLastMatches.toString().split(",").join(" ");
     }
+  };
 
-    return(
-        <div className="container">
-            <div className="currentForm">
-                {destruct(details)}
-                {idd}
-            </div>
-            <div>
-            </div>
+  return (
+    <div className="WinDrawLose">
+    <div className="home">
+      <div className="last__matches">
+        <div>
+          {home(details)}
         </div>
-    )
-}
+      </div>
+    </div>
+    <div className="away">
+      <div className="last__matches">
+        <div>{away(details)}</div>
+      </div>
+    </div>
+  </div>
+  );
+};

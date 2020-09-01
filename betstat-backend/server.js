@@ -142,39 +142,3 @@ async function moreDetailedMatch(ID) {
   console.log("dobra zrobione")
     browser.close();
   }
-
-
-// async function moreDetailedMatch() {
-//   const browser = await puppeteer.launch();
-//   const page = await browser.newPage();
-//   const undefineds = [];
-
-//   // Advanced data flashscore
-//   for (let { matchID: ID } of matches) {
-//     arrx = [];
-
-//     await page.goto(URL_FS + "/match/" + ID + "/#h2h;overall");
-//     // console.log(matches)
-
-//     for (let i = 0; i < 7; i++) {
-//       const [home] = await page.$x(`//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[${i}]/td[6]/a`);
-//       const [away] = await page.$x(`//*[@id="tab-h2h-overall"]/div[2]/table/tbody/tr[${i}]/td[6]/a`);
-
-//       if (home == undefined || away == undefined) {
-//         undefineds.push(ID);
-
-//       } else {
-//         const homeTitles = await home.getProperty("title");
-//         const awayTitles = await away.getProperty("title");
-
-//         const homeLastMatches = await homeTitles.jsonValue();
-//         const awayLastMatches = await awayTitles.jsonValue();
-
-//         console.log({ homeLastMatches, ID });
-//         console.log({ awayLastMatches, ID });
-//       }
-//     }
-//   }
-//   console.log(undefineds)
-//   browser.close();
-// }
