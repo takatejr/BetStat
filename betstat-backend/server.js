@@ -111,17 +111,8 @@ async function winLose(ID) {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
-  await page.goto(URL_FS + "/match/" + ID + "/#standings");
+  await page.goto(URL_FS + "/match/" + ID + "/#h2h;overall");
 
-  // const [win] = await page.$x(`//*[@id="tournament-table"]/div[3]/div[1]/div/div/div[2]/div[1]/span[2]`);
-  // const [draw] = await page.$x(`//*[@id="tournament-table"]/div[3]/div[1]/div/div/div[2]/div[1]/span[1]`);
-  // const [lose] = await page.$x(`//*[@id="tournament-table"]/div[3]/div[1]/div/div/div[2]/div[1]/span[4]`);
-  // const [goals] = await page.$x(`//*[@id="tournament-table"]/div[3]/div[1]/div/div/div[2]/div[1]/span[5]`);
-  // const [points] = await page.$x(`//*[@id="tournament-table"]/div[3]/div[1]/div/div/div[2]/div[1]/span[6]`);
-  // await page.waitForSelector('.rowCellParticipant___1zaQByK  ');
-  const draws = await page.$$eval(".rowCellParticipant___1zaQByK ~ span",  (res) => res.map(el => console.log(el)) );
-
-  console.log(draws)
   for (let i = 0; i < 7; i++) {
     const [home] = await page.$x(`//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[${i}]/td[6]/a`);
     const [away] = await page.$x(`//*[@id="tab-h2h-overall"]/div[2]/table/tbody/tr[${i}]/td[6]/a`);
@@ -150,16 +141,14 @@ async function seasonScore(ID) {
 
   await page.goto(URL_FS + "/match/" + ID + "/#standings");
 
-  // const [win] = await page.$x(`//*[@id="tournament-table"]/div[3]/div[1]/div/div/div[2]/div[1]/span[2]`);
-  // const [draw] = await page.$x(`//*[@id="tournament-table"]/div[3]/div[1]/div/div/div[2]/div[1]/span[1]`);
-  // const [lose] = await page.$x(`//*[@id="tournament-table"]/div[3]/div[1]/div/div/div[2]/div[1]/span[4]`);
-  // const [goals] = await page.$x(`//*[@id="tournament-table"]/div[3]/div[1]/div/div/div[2]/div[1]/span[5]`);
-  // const [points] = await page.$x(`//*[@id="tournament-table"]/div[3]/div[1]/div/div/div[2]/div[1]/span[6]`);
-  // await page.waitForSelector('.rowCellParticipant___1zaQByK  ');
-  const draws = await page.$$eval(".rowCellParticipant___1zaQByK ~ span",  (res) => res.map(el => console.log(el)) );
+  const [win] = await page.$x(`//*[@id="tournament-table"]/div[3]/div[1]/div/div/div[2]/div[1]/span[2]`);
+  const [draw] = await page.$x(`//*[@id="tournament-table"]/div[3]/div[1]/div/div/div[2]/div[1]/span[1]`);
+  const [lose] = await page.$x(`//*[@id="tournament-table"]/div[3]/div[1]/div/div/div[2]/div[1]/span[4]`);
+  const [goals] = await page.$x(`//*[@id="tournament-table"]/div[3]/div[1]/div/div/div[2]/div[1]/span[5]`);
+  const [points] = await page.$x(`//*[@id="tournament-table"]/div[3]/div[1]/div/div/div[2]/div[1]/span[6]`);
 
-  console.log(draws)
 
+  
   browser.close();
 }
 
