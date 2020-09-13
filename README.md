@@ -2,6 +2,8 @@
 
 Without live yet,
 
-# run backend -> npm run dev
+# Run project
 
-# run front -> npm start
+1. Clone repository,
+
+2. In repo folder, type "npm run dev"
