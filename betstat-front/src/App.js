@@ -12,7 +12,6 @@ class App extends Component {
     currentID: '',
     currentIndex: '1',
     matches: [],
-
   };
 
   betdatas = () => {
