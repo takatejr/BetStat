@@ -61,6 +61,10 @@ async function scrapeProduct() {
       awayLastMatches: [],
       homeStats: [],
       awayStats: [],
+      h2h: {
+        home: [],
+        away: [],
+      },
     });
   }
 
@@ -125,18 +129,23 @@ async function winLose(ID) {
   for (let i = 0; i < 7; i++) {
     const [home] = await page.$x(`//*[@id="tab-h2h-overall"]/div[1]/table/tbody/tr[${i}]/td[6]/a`);
     const [away] = await page.$x(`//*[@id="tab-h2h-overall"]/div[2]/table/tbody/tr[${i}]/td[6]/a`);
+    const [h2hHome] = await page.$x(`//*[@id="tab-h2h-overall"]/div[3]/table/tbody/tr[${i}]/td[3]/span`);
+    const [h2hAway] = await page.$x(`//*[@id="tab-h2h-overall"]/div[3]/table/tbody/tr[${i}]/td[4]/span`);
+    const [scores] = await page.$x(`//*[@id="tab-h2h-overall"]/div[3]/table/tbody/tr[${i}]/td[5]/span/strong`);
 
-    if (home !== undefined || away !== undefined) {
-      const homeTitles = await home.getProperty("title");
-      const awayTitles = await away.getProperty("title");
+    if (home !== undefined || away !== undefined || h2hAway !== undefined || h2hHome !== undefined || scores !== undefined) {
+      const homeLastMatches = await (await home.getProperty("title")).jsonValue();
+      const awayLastMatches = await (await away.getProperty("title")).jsonValue();
 
-      const homeLastMatches = await homeTitles.jsonValue();
-      const awayLastMatches = await awayTitles.jsonValue();
+      const h2hHomeText = await (await h2hHome.getProperty("textContent")).jsonValue();
+      const h2hAwayText = await (await h2hAway.getProperty("textContent")).jsonValue();
 
       for (const match of matches) {
         if (match.matchID == ID) {
           match.awayLastMatches.push(awayLastMatches);
           match.homeLastMatches.push(homeLastMatches);
+          match.h2h.home.push(h2hHomeText);
+          match.h2h.away.push(h2hAwayText)
         }
       }
     }
@@ -151,25 +160,18 @@ async function seasonScore(ID) {
   await page.goto(URL_FS + "/match/" + ID + "/#standings");
   await page.waitForSelector('.rows___1vntYow > div');
   const countTeams = await page.$$eval('.rows___1vntYow > div', div => div.length);
-
 arr =[];
 
   if (countTeams > 1) {  
     console.log(countTeams)
     for(let i = 1; i < countTeams; i++){
-    // const [win] = await page.$eval(`//*[@id="tournament-table"]/div[3]/div[1]/div/div/div[${i}]/div[1]/span[2]`, res => console.log(res.nodeValue, res.textContent, res.innerHTML));
     const [win] = await page.$x(`//*[@id="tournament-table"]/div[3]/div[1]/div/div/div[2]/div[${i}]/span[2]`)
     const [draw] = await page.$x(`//*[@id="tournament-table"]/div[3]/div[1]/div/div/div[2]/div[${i}]/span[3]`);
     const [lose] = await page.$x(`//*[@id="tournament-table"]/div[3]/div[1]/div/div/div[2]/div[${i}]/span[4]`);
     const [goals] = await page.$x(`//*[@id="tournament-table"]/div[3]/div[1]/div/div/div[2]/div[${i}]/span[5]`);
     const [points] = await page.$x(`//*[@id="tournament-table"]/div[3]/div[1]/div/div/div[2]/div[${i}]/span[6]`);
-      //*[@id="tournament-table-tabs-and-content"]/div[3]/div[1]/div/div/div[2]/div[1]
-      //*[@id="tournament-table-tabs-and-content"]/div[3]/div[1]/div/div/div[2]
-    const getwin = await win.getProperty("textContent");
-    const hehe = getwin.jsonValue();
-    console.log(getwin)
-    console.log(hehe)
-  console.log('wykonuje sie ten blok' + i)
+
+  // console.log('wykonuje sie ten blok' + i)
     }
   }
 
