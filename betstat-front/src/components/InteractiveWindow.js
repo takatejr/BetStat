@@ -59,7 +59,7 @@ export const MoreDetails = ({ details, idd }) => {
         <h1>H2H</h1>
         <div>
           {h2hToMap.map(el => 
-            <div className="flex">
+            <div className="grid">
             <div>{el[0]}  </div>
             <div>{el[1]}  </div>
             <div>{el[2]}  </div>

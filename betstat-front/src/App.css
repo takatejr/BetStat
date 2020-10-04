@@ -189,11 +189,10 @@ span {
   margin: 0 40%;
 }
 
-.flex {
+.grid {
   display: grid;
   grid-template-rows: repeat(5, 1fr);
   line-height: 30px;
-  white-space: normal;
 }
 
 .currentForm {
