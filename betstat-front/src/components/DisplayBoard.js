@@ -11,8 +11,8 @@ export const DisplayBoard = ({numberOfMatches, betdatas, consol, sortujto}) => {
             <div className="btn">
                 <button type="button" onClick={(e) => scrapData()}>SCRAPDATA</button>
                 <button type="button" onClick={(e) => betdatas()}>DO TABELI</button>
-                <button type="button" onClick={(e) => consol()}>Check state</button>
-                <button type="button" onClick={(e) => sortujto()}>sortujto</button>
+                <button type="button" onClick={(e) => consol()}>stan</button>
+                <button type="button" onClick={(e) => sortujto()}>obiekty</button>
             </div>
         </div>
     )

@@ -3,11 +3,14 @@ import React from "react";
 export const MoreDetails = ({ details, idd }) => {
   const away = [];
   const home = [];
+  const h2hToMap = [];
 
   const homes = (details) => {
     if (details === undefined) {
       return;
     } else {
+      const { h2h } = details;
+      h2hToMap.push(h2h);
       const { homeLastMatches } = details;
       for (let match of homeLastMatches) {
         home.push(match);
@@ -32,7 +35,10 @@ export const MoreDetails = ({ details, idd }) => {
         <div className="last__matches">
           {homes(details)}
           {home.map((el) => (
-            <div className={el[0]}>{el[0]}</div>
+            <div>
+              <div className={el[0][0]}>{el[0][0]}</div>
+              <div className="hidden">{el[1]}</div>
+            </div>
           ))}
         </div>
         <span>{details !== undefined ? details.home : null}</span>
@@ -41,10 +47,27 @@ export const MoreDetails = ({ details, idd }) => {
         <div className="last__matches">
           {aways(details)}
           {away.map((el) => (
-            <div className={el[0]}>{el[0]}</div>
+            <div>
+              <div className={el[0][0]}>{el[0][0]}</div>
+              <div className="hidden">{el[1]}</div>
+            </div>
           ))}
         </div>
-          <span>{details !== undefined ? details.away : null}</span>
+        <span>{details !== undefined ? details.away : null}</span>
+      </div>
+      <div>
+        <h1>H2H</h1>
+        <div>
+          {h2hToMap.map(el => 
+            <div className="flex">
+            <div>{el[0]}  </div>
+            <div>{el[1]}  </div>
+            <div>{el[2]}  </div>
+            <div>{el[3]}  </div>
+            <div>{el[4]}  </div>
+            </div>
+            )}
+        </div>
       </div>
     </div>
   );

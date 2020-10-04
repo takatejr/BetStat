@@ -116,9 +116,9 @@ td {
   border: 1px solid #e7d7ca;
 }
 
-.L,
-.D,
-.W {
+div.L,
+div.D,
+div.W {
   font-family: sans-serif;
   box-sizing: border-box;
   padding: 15%;
@@ -132,6 +132,14 @@ td {
   -webkit-box-shadow: 5px 4px 27px -4px rgba(71, 255, 61, 1);
   -moz-box-shadow: 5px 4px 27px -4px rgba(71, 255, 61, 1);
   box-shadow: 5px 4px 27px -4px rgba(71, 255, 61, 1);
+}
+
+.hidden {
+  display: none;
+}
+
+div.L:hover + div.hidden, div.W:hover + div.hidden, div.D:hover + div.hidden {
+  display: flex;
 }
 
 span {
@@ -152,7 +160,7 @@ span {
   height: 30px;
   justify-self: center;
   justify-items: center;
-  column-gap: 3px;
+  column-gap: 10px;
 }
 
 .L {
@@ -179,6 +187,13 @@ span {
 .btn {
   display: flex;
   margin: 0 40%;
+}
+
+.flex {
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  line-height: 30px;
+  white-space: normal;
 }
 
 .currentForm {
