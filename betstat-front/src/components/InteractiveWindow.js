@@ -1,16 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
+import Pagination from "./Pagination";
 
 export const MoreDetails = ({ details, idd }) => {
   const away = [];
   const home = [];
-  const h2hToMap = [];
+  const h2he = [];
+
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [matchesPerPage, setMatchesPerPage] = useState(10);
+
+  const indexOfLastMatch = currentPage * matchesPerPage;
+  const indexOfFirstMatch = indexOfLastMatch - matchesPerPage;
+  // const currentMatches = details.slice(indexOfFirstMatch, indexOfLastMatch)
+
+  // <Posts posts={currentMatches}/>
+
+  const h2hs = (details) => {
+    if (details === undefined) {
+      return
+    } else {
+      const { h2h } = details;
+      for (let match of h2h){
+        h2he.push(match)
+      }
+      
+    }
+  }
 
   const homes = (details) => {
     if (details === undefined) {
       return;
     } else {
-      const { h2h } = details;
-      h2hToMap.push(h2h);
       const { homeLastMatches } = details;
       for (let match of homeLastMatches) {
         home.push(match);
@@ -43,6 +65,7 @@ export const MoreDetails = ({ details, idd }) => {
         </div>
         <span>{details !== undefined ? details.home : null}</span>
       </div>
+      <Pagination postsPerPage={matchesPerPage} totalPosts={50} />
       <div className="away">
         <div className="last__matches">
           {aways(details)}
@@ -57,16 +80,16 @@ export const MoreDetails = ({ details, idd }) => {
       </div>
       <div>
         <h1>H2H</h1>
+        {h2hs(details)}
         <div>
-          {h2hToMap.map(el => 
-            <div className="grid">
-            <div>{el[0]}  </div>
-            <div>{el[1]}  </div>
-            <div>{el[2]}  </div>
-            <div>{el[3]}  </div>
-            <div>{el[4]}  </div>
-            </div>
-            )}
+          {h2he.map(({h2hHomeText, h2hAwayText, score}) =>
+          <div className="btn">
+            <div>{h2hHomeText}</div>
+            <div>{score}</div>
+            <div>{h2hAwayText}</div>
+
+          </div>
+          )}
         </div>
       </div>
     </div>

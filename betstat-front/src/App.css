@@ -186,7 +186,12 @@ span {
 }
 .btn {
   display: flex;
-  margin: 0 40%;
+  width: 200px;
+  margin: auto auto;
+}
+
+.btn > div {
+  padding: 3px;
 }
 
 .grid {

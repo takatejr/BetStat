@@ -88,7 +88,6 @@ app.get("/api/users", (req, res) => {
 
 app.post("/api/user", (req, res) => {
   const user = req.body.user
-  console.log("Adding user::::::::", user)
   users.push(user)
   res.json("user addedd")
 })
@@ -157,7 +156,7 @@ async function winLose(ID) {
         if (match.matchID == ID) {
           match.awayLastMatches.push([awayLastMatches, homeLastScores])
           match.homeLastMatches.push([homeLastMatches, awayLastScores])
-          match.h2h.push([h2hHomeText, h2hAwayText, score])
+          match.h2h.push({h2hHomeText, h2hAwayText, score})
         }
       }
     }
