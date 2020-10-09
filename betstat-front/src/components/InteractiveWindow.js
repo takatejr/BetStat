@@ -6,14 +6,13 @@ export const MoreDetails = ({ details, idd }) => {
   const home = [];
   const h2he = [];
 
-  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [matchesPerPage, setMatchesPerPage] = useState(10);
+  const [matchesPerPage] = useState(10);
 
   const indexOfLastMatch = currentPage * matchesPerPage;
   const indexOfFirstMatch = indexOfLastMatch - matchesPerPage;
-  // const currentMatches = details.slice(indexOfFirstMatch, indexOfLastMatch)
+  const currentMatches = details.slice(indexOfFirstMatch, indexOfLastMatch)
 
   // <Posts posts={currentMatches}/>
 
@@ -50,6 +49,8 @@ export const MoreDetails = ({ details, idd }) => {
       }
     }
   };
+
+  const paginate = pageNumber => setCurrentPage(pageNumber)
 
   return (
     <div className="WinDrawLose">
