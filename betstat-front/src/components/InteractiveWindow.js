@@ -12,7 +12,7 @@ export const MoreDetails = ({ details, idd }) => {
 
   const indexOfLastMatch = currentPage * matchesPerPage;
   const indexOfFirstMatch = indexOfLastMatch - matchesPerPage;
-  const currentMatches = details.slice(indexOfFirstMatch, indexOfLastMatch)
+  // const currentMatches = details.slice(indexOfFirstMatch, indexOfLastMatch)
 
   // <Posts posts={currentMatches}/>
 
